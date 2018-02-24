@@ -6,13 +6,10 @@ An example of React Native project with Backand Inetgartion and workflow based o
 1. Install latest nodeJs https://nodejs.org/
 
 2. Install React Native CLI(This is global Dependency). [react-native-cli](https://facebook.github.io/react-native/docs/getting-started.html)
+
 ```bash
 $ npm install -g react-native-cli
 ```
-
-Note : If you get an error like Cannot find module 'npmlog', try installing npm directly: 
-
-`curl -0 -L https://npmjs.org/install.sh | sudo sh`
 
 Read more [react-native-cli](https://facebook.github.io/react-native/docs/getting-started.html)
 
