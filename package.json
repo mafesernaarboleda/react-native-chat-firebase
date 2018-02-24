@@ -1,0 +1,33 @@
+{
+  "name": "chatalmundo",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "16.2.0"
+  },
+  "scripts": {
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "test": "node node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "firebase": "^4.10.0",
+    "moment": "^2.20.1",
+    "react": "16.2.0",
+    "react-native": "0.52.0",
+    "react-native-elements": "^0.19.0",
+    "react-native-fbsdk": "^0.7.0",
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.1.2",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.2.0"
+  }
+}
