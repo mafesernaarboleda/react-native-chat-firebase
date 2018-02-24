@@ -10,6 +10,7 @@ const initialState = {
   apiError: '',
   user: {},
   successSignin: false,
+  successSignout: false,
 };
 
 const session = (state = initialState, action) => {
@@ -20,6 +21,7 @@ const session = (state = initialState, action) => {
       restoring: true
     };
     case types.SIGNIN_REQUEST:
+    case types.SIGNOUT_REQUEST:
       return {
         ...state,
         loading: true,
@@ -41,6 +43,22 @@ const session = (state = initialState, action) => {
         apiError: '',
         user: action.user,
         successSignin: true,
+      };
+      case types.SIGNOUT_REQUEST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        apiError: action.error,
+        user: {},
+        successSignout: false,
+      };
+    case types.SIGNOUT_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        apiError: '',
+        user: {},
+        successSignout: true,
       };
     default:
       return state;

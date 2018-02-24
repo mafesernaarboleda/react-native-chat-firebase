@@ -6,6 +6,7 @@
 import { connect } from 'react-redux';
 import Chat from './chat';
 import { loadMessages, putMessage } from './../../reducers/chat/actions';
+import { signOut } from './../../reducers/session/actions';
 
 const mapStateToProps = (state) => ({
   ...state.chat,
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   putMessage: (message, user) => {
     dispatch(putMessage(message, user));
+  },
+  signOut: () => {
+    dispatch(signOut());
   },
 });
 

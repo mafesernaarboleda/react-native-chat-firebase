@@ -8,8 +8,8 @@ import { LoginManager, AccessToken} from 'react-native-fbsdk';
 import { AsyncStorage } from 'react-native';
 import firebaseService from '../../services/firebase';
 
-const FIREBASE_AUTH =  firebaseService.auth();
-const PROVIDER_FACEBOOK = firebaseService.auth.FacebookAuthProvider;
+const FIREBASE_AUTH =  firebase.auth();
+const PROVIDER_FACEBOOK = firebase.auth.FacebookAuthProvider;
 
 export function sessionRestoring(){
     return {
@@ -37,6 +37,25 @@ export function signinRequestSuccess(user) {
     };
 }
 
+export function signOutRequest(){
+    return {
+        type: types.SIGNOUT_REQUEST,
+    };
+};
+
+export function signOutRequestFail(error) {
+    return {
+      type: types.SIGNOUT_REQUEST_FAIL,
+      error,
+    };
+};
+
+export function signOutRequestSuccess() {
+    return {
+      type: types.SIGNOUT_REQUEST_SUCCESS,
+    };
+};
+
 export function signinFacebook() {
         return (dispatch) => {
             dispatch(signinRequest());
@@ -44,7 +63,6 @@ export function signinFacebook() {
               if (!loginResult.isCancelled){
                   AccessToken.getCurrentAccessToken().then(accessTokenData => {
                       const credential = PROVIDER_FACEBOOK.credential(accessTokenData.accessToken);
-                      AsyncStorage.setItem('token', accessTokenData.accessToken);
                       return FIREBASE_AUTH.signInWithCredential(credential);
                   }).then(result => {
                       dispatch(signinRequestSuccess(result));
@@ -65,9 +83,20 @@ export function restoreSession() {
       .onAuthStateChanged(user => {
           if (user) {
             dispatch(signinRequestSuccess(user))
-          } else {
-            //dispatch(sessionLogout());
-          }
+          } 
+        })
+    }
+}
+
+export function signOut(){
+    return (dispatch) => {
+      dispatch(signOutRequest())
+      FIREBASE_AUTH.signOut()
+        .then(() => {
+          dispatch(signOutRequestSuccess())
+        })
+        .catch(error => {
+          dispatch(signOutRequestFail(error.message))
         })
     }
 }

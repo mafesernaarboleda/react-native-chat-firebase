@@ -17,8 +17,9 @@ import {
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import styles from './style';
-import style from './style';
 import moment from 'moment';
 
 const background = require('./../../images/background.png');
@@ -27,6 +28,7 @@ const logo = require('./../../images/logo.png');
 class Chat extends Component {
 
   messages = [];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -58,15 +60,8 @@ onPutMessage(){
 }
 
 onSignOut(){
-  AsyncStorage.removeItem('token');
-  const resetAction = NavigationActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({routeName: 'Login'})]
-  });
-  this
-    .props
-    .navigation
-    .dispatch(resetAction);
+  const { signOut } = this.props;
+  signOut();
 }
 
   getTime(time) {
@@ -84,13 +79,14 @@ onSignOut(){
           </TouchableOpacity>
           </ImageBackground>   
         </View>  
-        <ScrollView style={styles.fullScreen}>
+        <ScrollView style={styles.fullScreen} ref={ref => this.scrollView = ref} onContentSizeChange={(contentWidth, contentHeight)=>{        
+        this.scrollView.scrollToEnd({animated: true})}}>
           {this
             .messages
             .map((message, index) => {
                 return (
                     <View style={styles.row} key={index}>
-                      <Image source={{ uri:message.user.photo }} style={style.photoUser}/>
+                      <Image source={{ uri:message.user.photo }} style={styles.photoUser}/>
                       <View style={styles.info}>        
                         <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{message.user.name}</Text>
                         <Text>{message.text}</Text>
@@ -103,7 +99,7 @@ onSignOut(){
                 );
             })}
         </ScrollView>
-        <KeyboardAvoidingView behavior="position" style={styles.keyBoardStule}>
+        <KeyboardAvoidingView  behavior="position" style={styles.keyBoardStule}>
               <View style={[styles.overlay, styles.bottomOverlay]}>
                 <View style={{ borderBottomColor: '#EA5F4A', borderBottomWidth: 1 }}>
                   <TextInput
