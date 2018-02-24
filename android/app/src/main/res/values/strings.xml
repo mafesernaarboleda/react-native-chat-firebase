@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">chatalmundo</string>
+    <string name="facebook_app_id">863064983867075</string>
+    <string name="fb_login_protocol_scheme">fb863064983867075</string>
 </resources>
