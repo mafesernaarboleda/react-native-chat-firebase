@@ -57,4 +57,4 @@ See also the list of [contributors](https://github.com/mafesernaarboleda/react-n
 
 ## License
 
-This project is licensed under Copy Right - see the [LICENSE](LICENSE) file for details
+This project is licensed under MIT - see the [LICENSE](LICENSE) file for details
