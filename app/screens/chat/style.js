@@ -16,6 +16,25 @@ const deviceWidth = Dimensions
 const deviceHeight = Dimensions
   .get('window')
   .height;
+
+const inputStyle = Platform.select({
+  android: {
+    alignItems: 'center',
+    width: 270,
+    color: '#000',
+    justifyContent: 'center',
+    fontSize: 13,
+  },
+  ios: {
+      alignItems: 'center',
+      width: 270,
+      color: '#000',
+      justifyContent: 'center',
+      height: 30,
+      fontSize: 13
+  },
+});
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -41,14 +60,7 @@ export default StyleSheet.create({
         marginTop: 20,
         flexDirection: 'column',
       },
-      inputStyle:  {
-        alignItems: 'center',
-        width: 270,
-        color: '#000',
-        justifyContent: 'center',
-        height: 30,
-        fontSize: 13,
-      },
+      inputStyle,
       overlay: {
         position: 'absolute',
         padding: 16,
@@ -91,13 +103,12 @@ export default StyleSheet.create({
         marginRight: 20,
       },
       textTitle:{ 
-        marginLeft: 20, color: '#fff', fontSize: 20, fontWeight: 'bold'
+        marginLeft: 20, color: '#fff', fontSize: 20, fontWeight: 'bold',
       },
       photoUser: {
         height:50, 
         width: 50, 
         borderRadius:25, 
-        borderColor: '#EA5F4A', 
         borderWidth: 2
       }
 });

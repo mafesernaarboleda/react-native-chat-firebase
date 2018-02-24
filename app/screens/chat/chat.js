@@ -14,6 +14,7 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   AsyncStorage,
+  Platform,
 } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { NavigationActions } from 'react-navigation';
@@ -28,6 +29,7 @@ const logo = require('./../../images/logo.png');
 class Chat extends Component {
 
   messages = [];
+  color;
 
   constructor(props) {
     super(props);
@@ -44,7 +46,7 @@ class Chat extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.successSignin) {
-      this.setState({ user : nextProps.user});
+      this.setState({ user : nextProps.user}); 
     }
     if (nextProps.successloadMessages) {
       this.messages = nextProps.messages;
@@ -64,9 +66,9 @@ onSignOut(){
   signOut();
 }
 
-  getTime(time) {
+getTime(time) {
     return moment(time).fromNow(true);
-  }
+}
 
   render() {
     return (
@@ -85,20 +87,22 @@ onSignOut(){
             .messages
             .map((message, index) => {
                 return (
-                    <View style={styles.row} key={index}>
-                      <Image source={{ uri:message.user.photo }} style={styles.photoUser}/>
-                      <View style={styles.info}>        
-                        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{message.user.name}</Text>
-                        <Text>{message.text}</Text>
-                        <View style={styles.time}>
-                          <Icon name='av-timer' size={10} color='#777'/> 
-                          <Text style={{ fontSize: 10, color: '#777', fontStyle: 'italic'}}>{this.getTime(message.createdAt)}</Text>
-                        </View>
-                      </View>
+                  <View style={styles.row} key={index}>
+                  <Image source={{ uri:message.user.photo }} style={[styles.photoUser,{  borderColor: this.state.user.uid === message.user.id ? '#18A55C' : '#EA5F4A'}]}/>
+                  <View style={styles.info}>        
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>{message.user.name}</Text>
+                    <Text>{message.text}</Text>
+                    <View style={styles.time}>
+                      <Icon name='av-timer' size={10} color='#777'/> 
+                      <Text style={{ fontSize: 10, color: '#777', fontStyle: 'italic'}}>{this.getTime(message.createdAt)}</Text>
                     </View>
+                  </View>
+                </View>
                 );
             })}
         </ScrollView>
+        {
+          Platform.OS === 'ios' && (
         <KeyboardAvoidingView  behavior="position" style={styles.keyBoardStule}>
               <View style={[styles.overlay, styles.bottomOverlay]}>
                 <View style={{ borderBottomColor: '#EA5F4A', borderBottomWidth: 1 }}>
@@ -106,7 +110,21 @@ onSignOut(){
                     onChangeText={message => this.setState({ message })}
                     value={this.state.message}
                     style={styles.inputStyle}
-                    underlineColorAndroid= {''}
+                    placeholder="Enter message"
+                  />
+                  </View>
+                  <TouchableOpacity onPress={() => this.onPutMessage()}>
+                    <Icon reverse name='paper-plane' type='font-awesome' color='#EA5F4A' />
+                  </TouchableOpacity>
+              </View>
+            </KeyboardAvoidingView>
+            ) || (
+              <View style={[styles.overlay, styles.bottomOverlay]}>
+                <View>
+                  <TextInput
+                    onChangeText={message => this.setState({ message })}
+                    value={this.state.message}
+                    style={styles.inputStyle}
                     placeholder="Enter message"
                     underlineColorAndroid="#EA5F4A"
                   />
@@ -115,8 +133,10 @@ onSignOut(){
                     <Icon reverse name='paper-plane' type='font-awesome' color='#EA5F4A' />
                   </TouchableOpacity>
               </View>
-            </KeyboardAvoidingView>
+            )
+          }
         </View>
+      
     );
   }
 }
