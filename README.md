@@ -23,8 +23,24 @@ Read more [react-native-cli](https://facebook.github.io/react-native/docs/gettin
  ```bash
  $ npm install
  ```
-  
-3. Set up your emulator
+ 
+3. Set up Firebase
+
+Firebase is a real-time cloud database that helps you build apps without building the backend. You can save and retrieve JSON objects, build user authentication, and get data updates in real-time. All we need for a chat app
+
+Create a new Firebase app on [your Firebase console](https://console.firebase.google.com/). You’ll need a Google Account.
+
+Rename file from `firebase.exmaple.js` to `firebase.js` that can be found by the path: *app/configs/firebase.js* the config from your Firebase account and paste it to firebase.js
+
+```js
+export const firebaseConfig = {
+    apiKey: "apikey",
+    authDomain: "name.firebaseapp.com",
+    databaseURL: "https://name.firebaseio.com/"
+}
+```
+  
+# Set up your emulator
 
 ## iOS
 
