@@ -44,21 +44,21 @@ class Chat extends Component {
     loadMessages();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.successSignin) {
-      this.setState({ user : nextProps.user}); 
-    }
-    if (nextProps.successloadMessages) {
-      this.messages = nextProps.messages;
-    }
-    if (nextProps.successPutMessage) {
-      this.setState({ message : ''});
-    }
+componentWillReceiveProps(nextProps) {
+  if (nextProps.successSignin) {
+    this.setState({ user : nextProps.user}); 
   }
+  if (nextProps.successloadMessages) {
+    this.messages = nextProps.messages;
+  }
+  if (nextProps.successPutMessage) {
+    this.setState({ message : ''});
+  }
+}
 
 onPutMessage(){
-    const { putMessage } = this.props;
-    putMessage(this.state.message, this.state.user);
+  const { putMessage } = this.props;
+  putMessage(this.state.message, this.state.user);
 }
 
 onSignOut(){
@@ -67,7 +67,7 @@ onSignOut(){
 }
 
 getTime(time) {
-    return moment(time).fromNow(true);
+  return moment(time).fromNow(true);
 }
 
   render() {

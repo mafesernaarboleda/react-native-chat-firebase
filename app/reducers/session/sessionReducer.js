@@ -44,7 +44,7 @@ const session = (state = initialState, action) => {
         user: action.user,
         successSignin: true,
       };
-      case types.SIGNOUT_REQUEST_FAIL:
+    case types.SIGNOUT_REQUEST_FAIL:
       return {
         ...state,
         loading: false,
