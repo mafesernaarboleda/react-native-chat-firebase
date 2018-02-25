@@ -2,6 +2,8 @@
 An example of React Native project with Backand Inetgartion and workflow based on
 [react-native-cli](https://facebook.github.io/react-native/docs/getting-started.html)
 
+![alt text](https://github.com/mafesernaarboleda/react-native-chat-firebase/blob/master/out.gif)
+
 # Prerequisites 
 1. Install latest nodeJs https://nodejs.org/
 
